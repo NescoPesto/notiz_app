@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ListenZeiger extends StatelessWidget {
+class ListenZeiger extends StatelessWidget { //Klasse für das Zeigen der Notizen
   final List<Map<String, String>> notizen;
 
   const ListenZeiger({super.key, required this.notizen});
@@ -17,9 +17,26 @@ class ListenZeiger extends StatelessWidget {
             child: ListTile(
             title: Text(notiz['titel']!), //VS-Code erfodert ein 'Nullcheck'
             subtitle: Text(notiz['notiz']!),
+            onTap: () => _zeigeNotiz(context, notiz),
           ),
         );
       },
     );
   }
 }
+
+//Funktion für das Zeigen einzelner Notizen
+void _zeigeNotiz (BuildContext context, Map<String, String> notiz){
+  showDialog(context: context, //Als Dialog
+  builder:(context) => AlertDialog(
+                  title: Text(notiz['titel']!),
+                  content: Text(notiz['notiz']!),
+                  actions: [ //Button erstellen fürs Schließen
+                    TextButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: const Text('Fertig'),
+                    ),
+                  ],
+                ),
+              );
+            }

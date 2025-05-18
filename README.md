@@ -1,21 +1,18 @@
 # notiz_app
-<<<<<<< HEAD
-eine kleine Notiz app, für das Lernen von Flutter und Dart
+notiz_app ist eine kleine Notiz app die ich erstellt habe, um mich mit Flutter und Dart auseindanderzusetzen
 =======
 
-A new Flutter project.
+notiz_app ist eine sehr simple Note-taking app, damit kann man Notizen erstellen mit einem Titel und den Inhalt.
 
-## Getting Started
+## Benutzung
 
-This project is a starting point for a Flutter application.
+1. Um eine Notiz zu erstellen, klicken Sie auf den "+" Knopf in der Haupseite
+2. Es wird nach einem Titel und die Notiz gefragt, da kannst du sie einfach frei schreiben und kann auf "Fertig" klicken.
+Deine Notiz wird dann auf der Hauptseite auftauchen.
+3. Wenn du auf dem Feld klickst wo deine Notiz steht, kannst du sie dann in einem Fenster sehen, um daraus zu kommen drückst du auf "Fertig"
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Features, die noch kommen können:
+- Bearbeiten von Notizen
+- Löschen von Notizen
 >>>>>>> dbabae5 (Initial commit)
 *
