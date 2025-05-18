@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'listview.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -67,7 +67,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<Map<String, String>> _notizen = []; // eine Liste mit allen Notizen wird erstellt, die erste ist für den Titel, die zweite für die Notiz, Map ist für die Zuweisung der Werte
+  final List<Map<String, String>> _notizen = []; // eine Liste mit allen Notizen wird erstellt, die erste ist für den Titel, die zweite für die Notiz, Map ist für die Zuweisung der Werte
   int _counter = 0;
 
   //hier kommt die Funktion für das erstellen von Notizen, das passiert wenn man den + Knopf drückt
@@ -126,34 +126,25 @@ void _listit(TextEditingController title, TextEditingController notiz){
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
 
-    body: Center( //In der Mitte des Bildschirms
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          if (_counter == 0) //Nur wenn der _counter = 0 ist
-            const Text(
-              'Sie haben noch keine Notizen erstellt, drücken Sie auf "+"', //wird dieser Text angezeigt
-            ),
-        ],
-      ),
-    ),
+body: Center( //In der Mitte des Bildschirms
+  child: Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      if (_counter == 0) //Nur wenn _counter = 0 ist, wird der Text angezeigt
+        const Text(
+          'Sie haben noch keine Notizen erstellt, drücken Sie auf "+"',
+        )
+      else //sonst, die Liste
+        ListenZeiger(notizen: _notizen),
+    ],
+  ),
+),
 
   floatingActionButton: FloatingActionButton(
     onPressed: _createNote,
