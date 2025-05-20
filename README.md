@@ -9,10 +9,11 @@ notiz_app ist eine sehr simple Note-taking app, damit kann man Notizen erstellen
 1. Um eine Notiz zu erstellen, klicken Sie auf den "+" Knopf in der Haupseite
 2. Es wird nach einem Titel und die Notiz gefragt, da kannst du sie einfach frei schreiben und kann auf "Fertig" klicken.
 Deine Notiz wird dann auf der Hauptseite auftauchen.
-3. Wenn du auf dem Feld klickst wo deine Notiz steht, kannst du sie dann in einem Fenster sehen, um daraus zu kommen drückst du auf "Fertig"
+3. Wenn du auf dem Feld klickst wo deine Notiz steht, kannst du sie dann in einem Fenster sehen, um daraus zu kommen drückst du auf "Fertig", Alternativ kannst du die Notiz bearbeiten mit dem Stift-Icon.
+
+## Bearbeiten
+in der Ansicht einer Notiz, wenn du auf dem Stift-Icon klickst wird ein neues Fenster auftauchen, wo du den Titel und die Notiz bearbeiten kannst, sollst du dich umentschieden haben, dann drückst du auf "Abbrechen", sonst drückst du auf "Ok" wenn du es schon fertig bearbeitet hast
 
 ## Features, die noch kommen können:
-- Bearbeiten von Notizen
 - Löschen von Notizen
->>>>>>> dbabae5 (Initial commit)
 *

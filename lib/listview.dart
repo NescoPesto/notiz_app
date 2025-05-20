@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 
 class ListenZeiger extends StatelessWidget { //Klasse für das Zeigen der Notizen
   final List<Map<String, String>> notizen;
+  final VoidCallback update; 
 
-  const ListenZeiger({super.key, required this.notizen});
+  const ListenZeiger({
+    super.key,
+    required this.notizen,
+    required this.update,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +22,7 @@ class ListenZeiger extends StatelessWidget { //Klasse für das Zeigen der Notize
             child: ListTile(
             title: Text(notiz['titel']!), //VS-Code erfodert ein 'Nullcheck'
             subtitle: Text(notiz['notiz']!),
-            onTap: () => _zeigeNotiz(context, notiz),
+            onTap: () => _zeigeNotiz(context, notiz, update),
           ),
         );
       },
@@ -26,17 +31,63 @@ class ListenZeiger extends StatelessWidget { //Klasse für das Zeigen der Notize
 }
 
 //Funktion für das Zeigen einzelner Notizen
-void _zeigeNotiz (BuildContext context, Map<String, String> notiz){
+void _zeigeNotiz (BuildContext context, Map<String, String> notiz, VoidCallback update){
   showDialog(context: context, //Als Dialog
   builder:(context) => AlertDialog(
                   title: Text(notiz['titel']!),
                   content: Text(notiz['notiz']!),
-                  actions: [ //Button erstellen fürs Schließen
-                    TextButton(
-                      onPressed: () => Navigator.of(context).pop(),
+                  actions: [ //Button erstellen fürs Bearbeiten und Schließen
+                    IconButton( //Bearbeiten
+                      onPressed: (){
+                        Navigator.of(context).pop(); //geht den Dialog weg  
+                       _bearbeiten(context, notiz, update); //Aufruf von _bearbeiten
+                       }, 
+                      icon: Icon(Icons.edit) //Stift-Icon
+                    ),
+                    TextButton( //'Fertig' zum Schließen des Dialogs
+                      onPressed: () => Navigator.of(context).pop(), 
                       child: const Text('Fertig'),
                     ),
                   ],
                 ),
               );
             }
+
+void _bearbeiten (BuildContext context, Map<String, String> notiz, VoidCallback update){
+  TextEditingController titelEdit = TextEditingController(text: notiz['titel']); //Variable für den Titel
+  TextEditingController notizEdit = TextEditingController(text: notiz['notiz']); //Variable für die Notiz
+
+  showDialog( //dann kommt Dialog
+    context: context, 
+    builder: (context)=> AlertDialog( //als AlertDialog
+      title: Text('Notiz bearbeiten'), //was da oben steht
+      content: Column( //Column mit einem Kind pro Textfeld
+        children: [
+          TextField(
+            controller: titelEdit,
+            decoration: InputDecoration(label: Text('Titel')), //UserInput
+          ),
+          TextField(
+            controller: notizEdit,
+            decoration: InputDecoration(label: Text('Notiz')),
+          )
+        ],
+      ),
+      actions: [
+        TextButton( //Abbrechen Knopf
+        onPressed: () => Navigator.of(context).pop(), 
+        child: Text('Abbrechen')
+        ),
+        TextButton( //Bestätigen Knopf
+          onPressed: (){
+            notiz['titel'] = titelEdit.text; //Titel wird überschrieben
+            notiz['notiz'] = notizEdit.text; //Notiz wird überschrieben
+            Navigator.of(context).pop();
+            update(); //Homepage wird aktualisiert
+          }, 
+          child: Text('Ok')
+          )
+      ],
+    )
+    );
+}

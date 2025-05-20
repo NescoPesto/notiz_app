@@ -141,7 +141,11 @@ body: Center( //In der Mitte des Bildschirms
           'Sie haben noch keine Notizen erstellt, drücken Sie auf "+"',
         )
       else //sonst, die Liste
-        ListenZeiger(notizen: _notizen),
+        ListenZeiger(
+        notizen: _notizen, 
+        update: () { //Definition von update, wird in ListenZeiger benutzt
+          setState(() {});
+        },),
     ],
   ),
 ),
