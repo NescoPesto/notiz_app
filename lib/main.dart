@@ -145,7 +145,8 @@ body: Center( //In der Mitte des Bildschirms
         notizen: _notizen, 
         update: () { //Definition von update, wird in ListenZeiger benutzt
           setState(() {});
-        },),
+        },
+        delete: _deleteNotiz),
     ],
   ),
 ),
@@ -157,4 +158,12 @@ body: Center( //In der Mitte des Bildschirms
   ),
   );
 }
+
+void _deleteNotiz(Map<String, String> notiz) { //Funktion für das Löschen
+  setState(() { //Aktualisieren
+    _notizen.remove(notiz); //Notiz wird entfernt
+    _counter--; //_counter wird um 1 kleiner
+  });
 }
+}
+

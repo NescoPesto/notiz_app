@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 
 class ListenZeiger extends StatelessWidget { //Klasse für das Zeigen der Notizen
   final List<Map<String, String>> notizen;
-  final VoidCallback update; 
+  final VoidCallback update;
+  final Function(Map<String, String>) delete;
 
   const ListenZeiger({
     super.key,
     required this.notizen,
     required this.update,
+    required this.delete,
   });
 
   @override
@@ -22,7 +24,7 @@ class ListenZeiger extends StatelessWidget { //Klasse für das Zeigen der Notize
             child: ListTile(
             title: Text(notiz['titel']!), //VS-Code erfodert ein 'Nullcheck'
             subtitle: Text(notiz['notiz']!),
-            onTap: () => _zeigeNotiz(context, notiz, update),
+            onTap: () => _zeigeNotiz(context, notiz, update, delete),
           ),
         );
       },
@@ -31,12 +33,19 @@ class ListenZeiger extends StatelessWidget { //Klasse für das Zeigen der Notize
 }
 
 //Funktion für das Zeigen einzelner Notizen
-void _zeigeNotiz (BuildContext context, Map<String, String> notiz, VoidCallback update){
+void _zeigeNotiz (BuildContext context, Map<String, String> notiz, VoidCallback update, Function(Map<String, String>) delete){
   showDialog(context: context, //Als Dialog
   builder:(context) => AlertDialog(
                   title: Text(notiz['titel']!),
                   content: Text(notiz['notiz']!),
-                  actions: [ //Button erstellen fürs Bearbeiten und Schließen
+                  actions: [ //Button erstellen fürs Löschen, Bearbeiten und Schließen
+                    IconButton( //Löschen
+                      onPressed: (){
+                        Navigator.of(context).pop();
+                        _loeschen(context, notiz, update, delete);
+                      }, 
+                      icon: Icon(Icons.delete)
+                      ),
                     IconButton( //Bearbeiten
                       onPressed: (){
                         Navigator.of(context).pop(); //geht den Dialog weg  
@@ -90,4 +99,23 @@ void _bearbeiten (BuildContext context, Map<String, String> notiz, VoidCallback 
       ],
     )
     );
+}
+
+void _loeschen (BuildContext context, Map<String, String> notiz, VoidCallback update, Function(Map<String, String>) delete){
+  showDialog(context: context, 
+  builder: (context) => AlertDialog( //Frage-Dialog zur Bestätigung
+    title: Text('Möchten Sie die Notiz löschen?'),
+    actions: [
+      TextButton( //Abbrechen
+      onPressed: () => Navigator.of(context).pop(), 
+      child: Text('Nein')),
+      TextButton(onPressed: (){ //Fortfahren
+        Navigator.of(context).pop();
+        delete(notiz); //Anwendung vom delete
+        update();
+      }, 
+      child: Text('Ja'))
+    ],
+  )
+  );
 }
